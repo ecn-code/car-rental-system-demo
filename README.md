@@ -24,18 +24,21 @@ We should need a car, a rental and a customer. I think we could have more than o
 Then about rental, it is a relation of a car, and a customer, we could know if a car is rented looking that a rental have not a finished date.
 Finally, the customer it is only is information that could be reused like is ID, and we could know his loyalty points doing a sum of all his obtained points at the rentals.
 
-![model](https://github.com/ecn-code/car-rental-system-demo/blob/main/schema.pdf)
+![model](https://github.com/ecn-code/car-rental-system-demo/blob/main/schema.png)
 
 ## API
 I started defined a yaml to have an idea of the api of the system but it is not updated
 [api](https://github.com/ecn-code/car-rental-system-demo/blob/main/api.yaml)
 
-![rentals](https://github.com/ecn-code/car-rental-system-demo/blob/main/rentals_api.yaml)
-![cars](https://github.com/ecn-code/car-rental-system-demo/blob/main/cars_api.yaml)
-![customers](https://github.com/ecn-code/car-rental-system-demo/blob/main/customers_api.yaml)
+![rentals](https://raw.githubusercontent.com/ecn-code/car-rental-system-demo/main/rentals_api.png)
+#
+![cars](https://raw.githubusercontent.com/ecn-code/car-rental-system-demo/main/cars_api.png)
+#
+![customers](https://raw.githubusercontent.com/ecn-code/car-rental-system-demo/main/customers_api.png)
 
 ## Technologies
-Application developed using Spring boot 2.6.7 with Java 11, testing features with test containers and using to save data a H2 database that keeps data while it is running and it is filled at start by the file data.sql
+Application developed using Spring boot 2.6.7 with Java 11, testing features with test containers 
+and using to save data a H2 database that keeps data while it is running and it is filled at start by the file data.sql
 
 ## How to run
 
@@ -48,4 +51,4 @@ Then you can test it from http://localhost:8080/swagger-ui/index.html#/rentals/
 - Define a role system to not allow all operations to all employs
 - Define a standard response for errors
 - Stablish only the yaml as the API documentation point, in order to have only one source that can be used also for other purposes
-- Validate the inputs and probably have more concrete objects or maps to respond depending on what is needed
+- Validate the inputs and probably have more concrete objects or mappings to respond depending on what is needed
