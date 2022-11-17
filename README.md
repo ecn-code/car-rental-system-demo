@@ -45,6 +45,20 @@ and using to save data a H2 database that keeps data while it is running and it 
 Requirements to run are Java 11 and Maven, then it should run doing `mvn spring-boot:run`.
 Then you can test it from http://localhost:8080/swagger-ui/index.html#/rentals/
 
+## Implemented
+
+- GET /rentals - to obtain all the rentals saved
+- POST /rentals/simulate - where we can send an array of rents that are not saved and return the rentals with the price
+  - Example: [{
+      "carRegistrationNumber": "1111PPP",
+      "customerIdNumber": "55555555Z",
+      "rentedFrom": "2022-06-14",
+      "rentedTo": "2022-06-24"
+    }]
+- POST /rentals - same as simulate but it save rents
+- POST /rentals/{id}/finish - we can finish the rent, sending a date in the body and we will save the rent with loyaltyPoints and surcharges
+- /customers/{id} - To retrieve the customer and see his loyaltyPoints
+
 ## TODO
 
 - Define a security system with users in order to do operations only for people allowed
