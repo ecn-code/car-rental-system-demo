@@ -1,0 +1,475 @@
+openapi: 3.0.3
+info:
+  title: Car rental system
+  description: Car rental system
+  version: 1.0.11
+tags:
+  - name: cars
+    description: Operations to manage cars
+  - name: rentals
+    description: Operations to create or simulate a rental
+  - name: customer
+    description: Operations about customers
+paths:
+  /cars:
+    get:
+      tags:
+        - cars
+      summary: Get all cars
+      operationId: getCars
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+    post:
+      tags:
+        - cars
+      summary: Creates a car
+      operationId: createCar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '400':
+          description: Invalid input
+  /car/{registrationNumber}:
+    get:
+      tags:
+        - cars
+      summary: Find car by registrationNumber
+      description: Returns a single car
+      operationId: carByRegistrationNumber
+      parameters:
+        - name: registrationNumber
+          in: path
+          description: registrationNumber of car
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '404':
+          description: Car not found
+    put:
+      tags:
+        - cars
+      summary: Updates a car
+      operationId: updateCar
+      parameters:
+        - name: registrationNumber
+          in: path
+          description: registrationNumber of car
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '400':
+          description: Invalid input
+        '404':
+          description: Not found
+    delete:
+      tags:
+        - cars
+      summary: Deletes a car
+      operationId: deleteCar
+      parameters:
+        - name: registrationNumber
+          in: path
+          description: registrationNumber of car
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: Not found
+  /rentals:
+    get:
+      tags:
+        - rentals
+      summary: Return list of rentals
+      operationId: getRentals
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rental'
+    post:
+      tags:
+        - rentals
+      summary: Create a rentals for a car
+      operationId: rent
+      requestBody:
+        content:
+          application/json:
+            schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rental'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rental'
+        '405':
+          description: Invalid input
+  /rentals/simulate:
+    post:
+      tags:
+        - rentals
+      summary: Simulate rentals for a car
+      operationId: simulateRent
+      requestBody:
+        content:
+          application/json:
+            schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rental'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rental'
+        '405':
+          description: Invalid input
+  /rentals/{id}/finish:
+    post:
+      tags:
+        - rentals
+      summary: Find rental by ID
+      operationId: getRentalById
+      parameters:
+        - name: id
+          in: path
+          description: id of rental
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              format: date
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rental'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Rental not found
+  /rentals/{id}:
+    get:
+      tags:
+        - rentals
+      summary: Find rental by ID
+      operationId: getRentalById
+      parameters:
+        - name: id
+          in: path
+          description: id of rental
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rental'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Rental not found
+    put:
+      tags:
+        - rentals
+      summary: Update rental by id
+      operationId: updateRentalById
+      parameters:
+        - name: id
+          in: path
+          description: id of rental
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rental'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rental'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Rental not found
+    delete:
+      tags:
+        - rentals
+      summary: Delete rental by id
+      operationId: deleteRental
+      parameters:
+        - name: id
+          in: path
+          description: id of rental
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Rental not found
+  /customers:
+    post:
+      tags:
+        - customer
+      summary: Creates a customer
+      operationId: createCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid customer supplied
+  /customers/{idNumber}:
+    get:
+      tags:
+        - customer
+      summary: Get customer by identification number
+      operationId: getCustomerByIdentificationNumber
+      parameters:
+        - name: idNumber
+          in: path
+          description: 'Identification number of a person'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid id number supplied
+        '404':
+          description: Customer not found
+    put:
+      tags:
+        - customer
+      summary: Update user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      parameters:
+        - name: idNumber
+          in: path
+          description: 'Identification number of a person'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid id number supplied
+        '404':
+          description: Customer not found
+    delete:
+      tags:
+        - customer
+      summary: Delete customer
+      operationId: deleteCustomer
+      parameters:
+        - name: idNumber
+          in: path
+          description: 'Identification number of a person'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid id number supplied
+        '404':
+          description: Customer not found
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        username:
+          type: string
+          example: fehguy
+        address:
+          type: array
+          xml:
+            name: addresses
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/Address'
+      xml:
+        name: customer
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+          example: 437 Lytton
+        city:
+          type: string
+          example: Palo Alto
+        state:
+          type: string
+          example: CA
+        zip:
+          type: string
+          example: '94301'
+      xml:
+        name: address
+    Rental:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        customer:
+          $ref: '#/components/schemas/Customer'
+        car:
+          $ref: '#/components/schemas/Car'
+        start_from:
+          type: string
+          format: date
+        end_to:
+          type: string
+          format: date
+        delivered_car_date:
+          type: string
+          format: date
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Dogs
+      xml:
+        name: category
+    CarModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: bmw x5
+        type:
+          type: string
+          description: type of the car
+          enum:
+            - premium
+            - suv
+            - small
+    Car:
+      required:
+        - model
+        - type
+        - registrationNumber
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        registrationNumber:
+          type: string
+          example: 1221ddd
+        model:
+          $ref: '#/components/schemas/CarModel'

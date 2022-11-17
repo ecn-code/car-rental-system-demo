@@ -1,0 +1,13 @@
+[Car|id: integer;registration_number: string;]
+[Car]<>->[CarBrand]
+[CarBrand]<>->[CarModel|loyalty_points: integer; price: float]
+[CarBrand|id: integer;name: string;]
+[CarModel]^[SUV]
+[CarModel]^[Small]
+[CarModel]^[Premium]
+[Rental|id: integer; price: float; rented_from: date; rented_to: date; delivered_car_date: date; surcharges: float]
+[Customer|id: integer; idNumber: string]
+[Customer]<-1..*<>[Rental]<>1..*-[Car]
+
+
+https://yuml.me
